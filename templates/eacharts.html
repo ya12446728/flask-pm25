@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>echart圖形繪製demo</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5
+.0.2/echarts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquer
+y/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- 設定dom跟區域大小 -->
+    <div id="main" style="width: 600px; height: 400px"></div>
+    <script type="text/javascript">
+        //初始化eharts物件
+        var chart = echarts.init(document.getElementById("main"));
+        //指定圖表的配置項和資料
+        var option = {
+            title: {
+                text: "echart圖形繪製DEMO",
+            },
+            tooltip: {},
+            legend: {
+                data: ["銷量"],
+            },
+
+            xAxis: {
+
+                data: ["襯衫", "羊毛衫", "雪紡衫", "褲子", "高跟鞋", "襪子"],
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: "銷量",
+                    type: "bar",
+                    data: [5, 20, 36, 10, 10, 20],
+                },
+            ],
+        };
+        //使用剛指定的配置項和資料顯示圖表。
+        chart.setOption(option);
+    </script>
+</body>
+
+</html>

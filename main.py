@@ -1,8 +1,9 @@
+#from _typeshed import FileDescriptor
 from datetime import datetime
 from flask import Flask
 from flask.templating import render_template
 from scrape.pm25 import get_pm25
-
+import json
 
 app = Flask(__name__)
 
@@ -20,7 +21,9 @@ def test():
         'name' : name,
         'time' : time
     })
-
+@app.route('/echarts')
+def echarts():
+    return render_template('eacharts.html')
 @app.route('/stock')
 def stock():
     time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
@@ -40,7 +43,16 @@ def pm25():
     cols,datas = get_pm25()
     return render_template('pm25.html',**locals())
 
+@app.route('/pm25-data', methods= ['GET','POST'])
+def get_pm25_json():
+    col,datas = get_pm25()
 
+    site = [data[1] for data in datas]
+    pm25 = [data[2] for data in datas]
+
+    data = {'col':col ,'site' : site , 'pm25' :pm25}
+
+    return json.dumps(data,ensure_ascii=False)
 
 @app.route('/sum/x=<x>&y=<y>')
 def get_sum(x,y):
